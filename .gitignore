@@ -6,3 +6,9 @@ log
 *-asciinema
 *.pid
 *-profile
+
+.vscode/
+**/build/
+CMakeCache.txt
+./CMakeCache/
+
