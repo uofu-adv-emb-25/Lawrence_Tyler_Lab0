@@ -9,6 +9,8 @@ log
 
 .vscode/
 **/build/
-CMakeCache.txt
-./CMakeCache/
-
+CMakeLists.txt
+**/CMakeFiles/
+**/Makefile
+**/CTestTestfile.cmake
+**/cmake_install.cmake
