@@ -2,6 +2,9 @@
 add_executable(hello_freertos
     hello_freertos.c
     )
+add_executable(blink
+    blink.c
+    )
 
 pico_set_program_name(hello_freertos "test")
 pico_set_program_version(hello_freertos "0.1")
@@ -19,6 +22,12 @@ target_link_libraries(hello_freertos PRIVATE
   FreeRTOS-Kernel-Heap4
 )
 
+# Add the libraries to the build
+target_link_libraries(blink PRIVATE
+  pico_stdlib
+  pico_cyw43_arch
+)
+
 # The CYW43 is the Wifi/Bluetooth module. If the board is set to pico_w, this
 # variable will be set and the wireless libraries added.
 if(PICO_CYW43_SUPPORTED)
@@ -26,9 +35,14 @@ if(PICO_CYW43_SUPPORTED)
     target_link_libraries(hello_freertos PRIVATE
         pico_cyw43_arch_none
     )
+    target_link_libraries(blink PRIVATE
+        pico_cyw43_arch_none
+    )
+
 endif()
 
 # Another pico macro which generates the uf2 file in addition to the elf
 pico_add_extra_outputs(hello_freertos)
+pico_add_extra_outputs(blink)
 
 add_custom_target(flash picotool load -f $<TARGET_FILE:hello_freertos> DEPENDS hello_freertos)
